@@ -49,6 +49,8 @@ class Algorithem:
             print("Vehicel Number", text)
             return text
 
+        return 'No number found'
+
     def getCamera(self):
         webcam = cv2.VideoCapture(0)
         processing = True
@@ -62,10 +64,9 @@ class Algorithem:
                 # print(result)  # prints true as long as the webcam is running
                 if result:
                     cv2.imwrite(filename='saved_img.jpg', img=frame)
+                    print("Image saved!")
                     webcam.release()
                     print("Processing image...")
-                    img_ = cv2.imread('saved_img.jpg', cv2.IMREAD_ANYCOLOR)
-                    print("Image saved!")
                     ret, buffer = cv2.imencode('.jpg', frame)
                     frame = buffer.tobytes()
                     yield (b'--frame\r\n'
@@ -73,6 +74,10 @@ class Algorithem:
                 else:
                     print('no image detected')
                 processing = False
+                img_ = 'saved_img.jpg'
+                response = self.Detect(img_)
+                print(response)
+                return response
             except (KeyboardInterrupt):
                 print("Turning off camera.")
                 webcam.release()
