@@ -32,14 +32,16 @@
         <div class="card-inner">
           <div class="container">
             <div class="image">
-              <img
-                src="../static/assets/images/unilogo.jpg"
-                alt="asda"
-              />
+              <img src="../static/assets/images/unilogo.jpg" alt="asda" />
             </div>
             <h1>Automatic Number Plate Recognition</h1>
-            <h1>{{number}}</h1>
-            <p>Upload image of the vehicle to autenticate</p>
+            <div>
+              <h1>{{number}}</h1>
+              {% block content %} {% if vehicle_image %}
+              <img src="{{vehicle_image}}" width="300" height="200" />
+              {% endif %} {% endblock content %}
+            </div>
+            <p>Upload image of the vehicle to authenticate</p>
           </div>
           <div class="form-input">
             <input
@@ -52,7 +54,9 @@
             <button class="subscribe-btn" type="submit" onclick="loading();">
               Submit
             </button>
+            <a href="/live" class="subscribe-btn">Camera</a>
           </div>
+          <a href="/" class="logout-btn">LOG OUT</a>
         </div>
       </form>
     </div>

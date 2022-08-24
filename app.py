@@ -1,13 +1,18 @@
-from http.client import OK
-import json
-from flask import Flask, request, render_template, flash, redirect, url_for
 import os
-from werkzeug.utils import secure_filename
-from detect import Algorithem
 from sqlite import SqlLite
+from detect import Algorithem
+from flask import Flask, request, render_template, flash, redirect, url_for, Response, session
+from werkzeug.utils import secure_filename
 
 
 app = Flask(__name__)
+
+# Defining upload folder path
+UPLOAD_FOLDER = os.path.join('static', 'uploads')
+# Define secret key to enable session
+app.secret_key = 'This is your secret key to utilize session in Flask'
+# Configure upload folder for Flask application
+app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 
 
 @app.route('/')
@@ -88,8 +93,49 @@ def upload_file():
     if file and algo.AllowedFile(file.filename):
         filename = secure_filename(file.filename)
         vehicelNumber = algo.Detect(filename)
+        # Upload file to database (defined uploaded folder in static path)
+        file.save(os.path.join(
+            app.config['UPLOAD_FOLDER'], filename))
+        # Storing uploaded file path in flask session
+        session['uploaded_img_file_path'] = os.path.join(
+            app.config['UPLOAD_FOLDER'], filename)
+        img_file_path = session.get('uploaded_img_file_path', None)
+    return render_template('index.html', number=vehicelNumber, vehicle_image=img_file_path)
 
-    return render_template('index.html', number=vehicelNumber)
+
+@app.route('/info')
+def info_page():
+    sql = SqlLite()
+    conn = sql.Connect()
+    sql.CreateVehicleTable()
+    vehicleInfo = None
+    try:
+        with conn:
+            cur = conn.cursor()
+            cur.execute(
+                'SELECT name,address,car_model,license_no FROM VehicleInfo WHERE name=?', ('ENGLAND',))
+
+            vehicleInfo = cur.fetchone()
+            msg = "Success"
+    except:
+        conn.rollback()
+        msg = "Error occurred"
+
+    finally:
+        conn.close()
+    return render_template('info.html', info=vehicleInfo)
+
+
+@app.route('/live')
+def Live():
+    return render_template('live.html')
+
+
+@app.route('/video_feed')
+def video_feed():
+    algo = Algorithem()
+    # Video streaming route. Put this in the src attribute of an img tag
+    return Response(algo.getCamera(), mimetype='multipart/x-mixed-replace; boundary=frame')
 
 
 if __name__ == '__main__':

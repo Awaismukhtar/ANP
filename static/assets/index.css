@@ -75,6 +75,32 @@ input {
   cursor: pointer;
 }
 
+
+.logout-btn
+{
+  display: block;
+  width: 11%;
+	margin: 10px auto;
+	justify-content: center;
+  text-decoration: none;
+  padding: .8rem 2rem;
+  border-radius: 5rem;
+  background: linear-gradient(90deg, #573b8a, #6d44b8);
+  color: #fff;
+  font-size: .7rem;
+  border: none;
+  outline: none;
+  cursor: pointer;
+  margin-top: 3rem;
+  transition-duration: 0.2s;
+}
+
+.logout-btn:hover
+{
+  font-size: 1rem;
+  width: 15%;
+}
+
 .loader {
   border: 16px solid #f3f3f3; /* Light grey */
   border-top: 16px solid blue;
@@ -87,6 +113,10 @@ input {
   display:none;
   justify-content:center;
   margin: 0 auto;
+}
+
+a {
+	text-decoration: none;
 }
 @keyframes spin {
   0% { transform: rotate(0deg); }

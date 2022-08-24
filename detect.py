@@ -1,8 +1,9 @@
+from concurrent.futures import process
 import cv2
-from matplotlib import pyplot as plt
 import numpy as np
 import imutils
 import easyocr
+from time import sleep
 
 ALLOWED_EXTENSIONS = set(['png', 'jpg', 'jpeg'])
 
@@ -12,8 +13,8 @@ class Algorithem:
     def AllowedFile(self, filename):
         return '.' in filename and filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
 
-    def Detect(self,filename):
-        # img = cv2.imread('image4.jpg')
+    def Detect(self, filename):
+        # img = cv222.imread('image4.jpg')
         img = cv2.imread(filename)
         gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
 
@@ -47,3 +48,61 @@ class Algorithem:
         for (bbox, text, prob) in result:
             print("Vehicel Number", text)
             return text
+
+    def getCamera(self):
+        webcam = cv2.VideoCapture(0)
+        processing = True
+        while processing:
+            try:
+                if not webcam.isOpened():
+                    print('Unable to load camera.')
+                    sleep(5)
+                    pass
+                result, frame = webcam.read()
+                # print(result)  # prints true as long as the webcam is running
+                if result:
+                    cv2.imwrite(filename='saved_img.jpg', img=frame)
+                    webcam.release()
+                    print("Processing image...")
+                    img_ = cv2.imread('saved_img.jpg', cv2.IMREAD_ANYCOLOR)
+                    print("Image saved!")
+                    ret, buffer = cv2.imencode('.jpg', frame)
+                    frame = buffer.tobytes()
+                    yield (b'--frame\r\n'
+                           b'Content-Type: image/jpeg\r\n\r\n' + frame + b'\r\n')  # concat frame one by one and show result
+                else:
+                    print('no image detected')
+                processing = False
+            except (KeyboardInterrupt):
+                print("Turning off camera.")
+                webcam.release()
+                print("Camera off.")
+                print("Program ended.")
+                break
+
+    def gen_frames(self):
+        # generate frame by frame from camera
+        camera = cv2.VideoCapture(0)
+        while True:
+            # Capture frame-by-frame
+            success, frame = camera.read()  # read the camera frame
+            result = frame
+            if not success:
+                print('assa')
+                break
+            else:
+                ret, buffer = cv2.imencode('.jpg', frame)
+                frame = buffer.tobytes()
+                yield (b'--frame\r\n'
+                       b'Content-Type: image/jpeg\r\n\r\n' + frame + b'\r\n')  # concat frame one by one and show result
+                # key = cv2.waitKey(10000)
+                # if key == ord('s'):
+                #     # saving image in local storage
+                #     cv2.imwrite(filename='saved_img.jpg', img=result)
+                #     camera.release()
+                #     print("here")
+                # elif key == ord('q'):
+                #     camera.release()
+                #     print("q")
+
+                # break

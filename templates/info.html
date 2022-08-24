@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Owner Info</title>
+    <link rel="stylesheet" href="{{ url_for('static',filename='assets/info.css') }}">
+    <script src="https://kit.fontawesome.com/eea4c5f9db.js" crossorigin="anonymous"></script>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+          <h1>VEHICLE OWNER INFORMATION</h1>
+        </div>         
+        <p>Name:{{info[0]}} </p>
+        
+        <p>Address:{{info[1]}} </p>
+        
+        <p>Car Model: {{info[2]}}</p>
+
+        <p>License Plate No: {{info[3]}}</p>
+
+
+        <div class="listitems">
+          <h4>Contact Information</h4>
+          <div>
+            <ul>
+              <li><i class="fa-solid fa-phone"></i> 03445566778</li>
+              <li><i class="fa-brands fa-facebook"></i> mark342</li>
+              <li><i class="fa-solid fa-envelope"></i> mark@Gmail.com</li>
+            </ul>
+          </div>
+        </div> 
+        <a href="/" class="GoBack-btn">Go Back</a>
+      </div>
+      
+  </div>
+        
+      
+      
+</body>
+</html>
