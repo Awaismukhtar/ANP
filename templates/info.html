@@ -6,21 +6,58 @@
     <title>Owner Info</title>
     <link rel="stylesheet" href="{{ url_for('static',filename='assets/info.css') }}">
     <script src="https://kit.fontawesome.com/eea4c5f9db.js" crossorigin="anonymous"></script>
+    <style>
+      #customers {
+        font-family: Arial, Helvetica, sans-serif;
+        border-collapse: collapse;
+        width: 90%;
+        text-align: left;
+         display: inline-table;
+      }
+      
+      #customers td, #customers th {
+        border: 1px solid #ddd;
+        padding: 8px;
+      }
+      
+      #customers tr:nth-child(even){background-color: #ffff;}
+      
+      #customers tr:hover {background-color: #ddd;}
+      
+      #customers th {
+        padding-top: 12px;
+        padding-bottom: 12px;
+        text-align: left;
+        background-color: #04AA6D;
+        color: white;
+      }
+      #customers td {
+        color: black;
+      }
+      </style>
 </head>
 <body>
     <div class="container">
         <div class="header">
           <h1>VEHICLE OWNER INFORMATION</h1>
-        </div>         
-        <p>Name:{{info[0]}} </p>
-        
-        <p>Address:{{info[1]}} </p>
-        
-        <p>Car Model: {{info[2]}}</p>
-
-        <p>License Plate No: {{info[3]}}</p>
-
-
+        </div>
+        {% if info != None %}  
+        <div>
+          <table id="customers">
+            <tr>
+              <th>Name</th>
+              <th>Address</th>
+              <th>Car Model</th>
+              <th>License Plate No</th>
+            </tr>
+            <tr>
+              <td>{{info[0]}}</td>
+              <td>{{info[1]}}</td>
+              <td>{{info[2]}}</td>
+              <td>{{info[3]}}</td>
+            </tr>
+          </table>
+      </div>       
         <div class="listitems">
           <h4>Contact Information</h4>
           <div>
@@ -31,7 +68,9 @@
             </ul>
           </div>
         </div> 
-        <a href="/" class="GoBack-btn">Go Back</a>
+        {% else %}<h2>Not Authorized</h2>
+        {% endif %}
+        <button onclick="history.go(-2)" class="GoBack-btn">Go Back</button>
       </div>
       
   </div>

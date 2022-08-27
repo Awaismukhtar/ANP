@@ -11,17 +11,108 @@
       integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
       crossorigin="anonymous"
     />
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="{{ url_for('static',filename='assets/index.css') }}"
+    />
     <title>Camera</title>
   </head>
   <body>
-    <div class="container">
+    <div class="row justify-content-center mt-4">
+      <video
+        id="video"
+        width="640"
+        height="480"
+        autoplay
+        style="background-color: grey"
+        class="mr-2"
+      ></video>
+      <canvas
+        id="canvas"
+        width="640"
+        height="480"
+        style="background-color: grey"
+      ></canvas>
+    </div>
+
+    <div class="row justify-content-center mt-4 col-12">
+      <button id="send" class="col-8">Take & Detect Photo</button>
+      <label
+        class="col-6 vnumber mt-2"
+        style="background-color: white; text-align: center"
+      >
+        e.g ICT-456</label
+      >
+    </div>
+
+    <script>
+      // Elements for taking the snapshot
+      var video = document.getElementById("video");
+      var canvas = document.getElementById("canvas");
+      var context = canvas.getContext("2d");
+
+      // Get access to the camera!
+      if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
+        // Not adding `{ audio: true }` since we only want video now
+        navigator.mediaDevices
+          .getUserMedia({ video: true })
+          .then(function (stream) {
+            //video.src = window.URL.createObjectURL(stream);
+            video.srcObject = stream;
+            video.play();
+          });
+      }
+
+      // Trigger photo take
+      document.getElementById("send").addEventListener("click", function () {
+        context.drawImage(video, 0, 0, 640, 480); // copy frame from <video>
+        canvas.toBlob(upload, "image/jpeg"); // convert to file and execute function `upload`
+      });
+
+      function upload(file) {
+        // create form and append file
+        var formdata = new FormData();
+        formdata.append("snap", file);
+
+        // create AJAX requests POST with file
+        var xhr = new XMLHttpRequest();
+        xhr.open("POST", "{{ url_for('processImage') }}", true);
+        xhr.onload = function () {
+          if ((this.status = 200)) {
+            console.log(this.response);
+          } else {
+            console.error("error", xhr);
+          }
+          res = JSON.parse(this.response);
+          var p = document.getElementsByClassName("vnumber");
+          if (res.vehicleNumber == null) {
+            p[0].innerHTML = "Not recognized";
+            return;
+          }
+          p[0].innerHTML = res.vehicleNumber;
+        };
+        xhr.send(formdata);
+      }
+    </script>
+    <!-- <div class="container wrapper">
       <div class="row">
         <div class="col-lg-8 offset-lg-2">
-          <h3 class="mt-5">Live Streaming</h3>
+          <h3 class="mt-5">Live Camera</h3>
+          {% if filename %}
+          <div>
+            <img src="{{ url_for('display_image', filename=filename) }}" />
+          </div>
+          {% endif %} {% if not filename %}
           <img src="{{ url_for('video_feed') }}" width="100%" />
-          <h1>{{image}}</h1>
+          {% endif %}
+          <form method="post" action="/" enctype="multipart/form-data">
+            <p>
+              <button type="submit" class="subscribe-btn" value="Capture" >Capture</button>
+            </p>
+          </form>
         </div>
       </div>
-    </div>
+    </div> -->
   </body>
 </html>

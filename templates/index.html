@@ -29,20 +29,26 @@
         message in messages %} {{ message }} {% endfor %} {% endif %} {% endwith
         %}
         <div class="loader"></div>
+        {% block content %}
         <div class="card-inner">
           <div class="container">
             <div class="image">
               <img src="../static/assets/images/unilogo.jpg" alt="asda" />
             </div>
+            {% if not vehicle_image %}
             <h1>Automatic Number Plate Recognition</h1>
+            {% endif %}
             <div>
-              <h1>{{number}}</h1>
-              {% block content %} {% if vehicle_image %}
-              <img src="{{vehicle_image}}" width="300" height="200" />
-              {% endif %} {% endblock content %}
+              {% if number is defined and number == None %}
+              <h3  class="mt-3" style="font-size:17px ;">Something wrong with the image Please Try another image</h2>
+              <button onclick="{{url_for('home')}}" class="subscribe-btn" style="margin-top:30px ;">Go Back</button>
+              {%endif%}
             </div>
+            {% if not vehicle_image %}
             <p>Upload image of the vehicle to authenticate</p>
+            {% endif %}
           </div>
+          {% if not vehicle_image %}
           <div class="form-input">
             <input
               type="file"
@@ -56,9 +62,23 @@
             </button>
             <a href="/live" class="subscribe-btn">Camera</a>
           </div>
-          <a href="/" class="logout-btn">LOG OUT</a>
+          <div class="logout-btn">
+          <a href="/auth" class="">LOG OUT</a>
         </div>
+  
+        </div>
+        {% endif %} {% endblock content %}
       </form>
+      {% if number and number != None %}
+      <div class="details">
+        <h2>Vehicle No: {{number}}</h1>
+        <img src="{{vehicle_image}}"  width="400" height="400" />
+        <form action="{{ url_for('info') }}" method="get">
+          <input type="hidden" name="v_num" value="{{number}}" />
+          <button class="subscribe-btn" type="submit">View Profile</button>
+      </form>
+      </div> 
+      {% endif%}
     </div>
   </body>
   <script src="{{url_for('static', filename='assets/Js/index.js')}}"></script>

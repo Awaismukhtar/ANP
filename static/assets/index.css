@@ -27,6 +27,13 @@ body {
   border-radius: 100%;
   margin: 0 0 1rem 0;
 }
+.details{
+  margin-top: 20px;
+}
+
+.details h2 {
+  margin-bottom: 10px;
+}
 
 .card-content {
   max-width: 30rem;
@@ -78,11 +85,9 @@ input {
 
 .logout-btn
 {
-  display: block;
-  width: 11%;
+  width: 25%;
 	margin: 10px auto;
 	justify-content: center;
-  text-decoration: none;
   padding: .8rem 2rem;
   border-radius: 5rem;
   background: linear-gradient(90deg, #573b8a, #6d44b8);
@@ -95,10 +100,14 @@ input {
   transition-duration: 0.2s;
 }
 
-.logout-btn:hover
+.logout-btn a{
+  color: #fff;
+  text-decoration: none;
+}
+
+.logout-btn a:hover
 {
   font-size: 1rem;
-  width: 15%;
 }
 
 .loader {

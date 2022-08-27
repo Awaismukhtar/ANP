@@ -22,13 +22,13 @@ class SqlLite:
         conn.execute("INSERT or IGNORE INTO VehicleInfo (name,age,address,car_model,license_no) \
                     VALUES ('Paul', 32, 'California','GLI','BARBUS' )")
         conn.execute("INSERT or IGNORE INTO VehicleInfo (name,age,address,car_model,license_no) \
-                    VALUES ('Mark', 25, 'Rich-Mond ','MEHRAN','HR.26.BR.9044')")
+                    VALUES ('Mark', 25, 'Rich-Mond ','MEHRAN','HR26BR9044')")
         conn.execute("INSERT or IGNORE INTO VehicleInfo (name,age,address,car_model,license_no) \
                     VALUES ('lark', 65, 'domb-rich ','CIVIC','BJY98Z')")
         conn.execute("INSERT or IGNORE INTO VehicleInfo (name,age,address,car_model,license_no) \
                     VALUES ('ENGLAND', 55, 'MARRY ','COROLLA','COVid19')")
         conn.execute("INSERT or IGNORE INTO VehicleInfo (name,age,address,car_model,license_no) \
-                    VALUES ('UK', 30, 'CHARLIE ','WAGONR','H982 FKL')")
+                    VALUES ('UK', 30, 'CHARLIE ','WAGONR','H982FKL')")
         conn.commit()
         print("Records in VehicleInfo created successfully")
         #  DISPLAY ALL THE RECORDS IN DATABASE
