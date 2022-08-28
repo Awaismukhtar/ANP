@@ -20,15 +20,21 @@ class SqlLite:
         print("VehicleInfo table created")
         # ADD DATA OR RECORD IN TABLE
         conn.execute("INSERT or IGNORE INTO VehicleInfo (name,age,address,car_model,license_no) \
-                    VALUES ('Paul', 32, 'California','GLI','BARBUS' )")
+                    VALUES ('Robert', 32, 'California','GLI','MY70BMW' )")
+        conn.execute("INSERT or IGNORE INTO VehicleInfo (name,age,address,car_model,license_no) \
+                    VALUES ('Lussi', 39, 'California','CIVIC','MH12PH1908' )")
+        conn.execute("INSERT or IGNORE INTO VehicleInfo (name,age,address,car_model,license_no) \
+                    VALUES ('Paul', 32, 'ENGLAND','GLI','CCC444' )")
+        conn.execute("INSERT or IGNORE INTO VehicleInfo (name,age,address,car_model,license_no) \
+                    VALUES ('MARRY', 22, 'California','GLI','AVE068' )")                                    
         conn.execute("INSERT or IGNORE INTO VehicleInfo (name,age,address,car_model,license_no) \
                     VALUES ('Mark', 25, 'Rich-Mond ','MEHRAN','HR26BR9044')")
         conn.execute("INSERT or IGNORE INTO VehicleInfo (name,age,address,car_model,license_no) \
-                    VALUES ('lark', 65, 'domb-rich ','CIVIC','BJY98Z')")
+                    VALUES ('lark', 65, 'domb-rich ','CIVIC','DL4CAA0006')")
         conn.execute("INSERT or IGNORE INTO VehicleInfo (name,age,address,car_model,license_no) \
-                    VALUES ('ENGLAND', 55, 'MARRY ','COROLLA','COVid19')")
+                    VALUES ('MARIA', 55, 'ENGLAND ','COROLLA','AFR020')")
         conn.execute("INSERT or IGNORE INTO VehicleInfo (name,age,address,car_model,license_no) \
-                    VALUES ('UK', 30, 'CHARLIE ','WAGONR','H982FKL')")
+                    VALUES ('CHARLIE', 30, 'UK','WAGONR','H982FKL')")
         conn.commit()
         print("Records in VehicleInfo created successfully")
         #  DISPLAY ALL THE RECORDS IN DATABASE

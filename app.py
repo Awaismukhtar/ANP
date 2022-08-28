@@ -48,7 +48,7 @@ def auth():
     return render_template("auth.html")
 
 
-@app.route('/home', methods=["POST","GET"])
+@app.route('/home', methods=["POST", "GET"])
 def home():
     sql = SqlLite()
     conn = sql.Connect()
@@ -100,10 +100,10 @@ def register():
             return render_template("auth.html", msg=msg)
 
 
-@app.route('/upload', methods=["POST","GET"])
+@app.route('/upload', methods=["POST", "GET"])
 def upload_file():
     if request.method == 'GET':
-         return render_template('index.html')
+        return render_template('index.html')
     if request.method == 'POST':
         # check if the post request has the file part
         if 'file' not in request.files:
@@ -127,10 +127,13 @@ def upload_file():
         session['uploaded_img_file_path'] = os.path.join(
             app.config['UPLOAD_FOLDER'], filename)
         img_file_path = session.get('uploaded_img_file_path', None)
-        vehicelNumber = algo.Detect(filename)
-
-
-    return render_template('index.html', number=vehicelNumber, vehicle_image=img_file_path)
+        vehicleNumber = algo.Detect(filename)
+        profile = None
+        if vehicleNumber != None:
+            number = ''.join(filter(str.isalnum, vehicleNumber))
+            profile = getprofile(number)
+        print(profile, "asdas")
+    return render_template('index.html', number=vehicleNumber, vehicle_image=img_file_path, profile=profile)
 
 
 @app.route('/info', methods=['GET'])

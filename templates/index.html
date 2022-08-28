@@ -35,6 +35,11 @@
             <div class="image">
               <img src="../static/assets/images/unilogo.jpg" alt="asda" />
             </div>
+           {% if profile == None %}
+            <h2 style="color: red;">Not Authorized</h2>
+            {% else %}
+            <h2 style="color: green;">Authorized</h2>
+            {%endif %}
             {% if not vehicle_image %}
             <h1>Automatic Number Plate Recognition</h1>
             {% endif %}
