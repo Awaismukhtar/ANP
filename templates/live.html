@@ -38,14 +38,21 @@
 
     <div class="row justify-content-center mt-4 col-12">
       <button id="send" class="col-8">Take & Detect Photo</button>
-      <label
-        class="col-6 vnumber mt-2"
+      <h2
+        class="col-6 vnumber mt-2 p-1"
         style="background-color: white; text-align: center"
       >
-        e.g ICT-456</label
+        e.g ICT-456</h2
       >
     </div>
-
+    <div class="container text-center d-none profile">
+      <h2 class="auth"></h2>
+      <img width="400" src="" height="400" class="image" />
+      <form action="{{ url_for('info') }}" method="get">
+        <input type="hidden" name="v_num" id="v_num" />
+        <button class="subscribe-btn" type="submit">View Profile</button>
+      </form>
+    </div>
     <script>
       // Elements for taking the snapshot
       var video = document.getElementById("video");
@@ -74,7 +81,6 @@
         // create form and append file
         var formdata = new FormData();
         formdata.append("snap", file);
-
         // create AJAX requests POST with file
         var xhr = new XMLHttpRequest();
         xhr.open("POST", "{{ url_for('processImage') }}", true);
@@ -86,33 +92,24 @@
           }
           res = JSON.parse(this.response);
           var p = document.getElementsByClassName("vnumber");
+          var auth = document.getElementsByClassName("auth");
           if (res.vehicleNumber == null) {
             p[0].innerHTML = "Not recognized";
+            auth[0].innerHTML = "Not Authorized";
+            auth[0].style.color = "red";
             return;
           }
+          if (res.profile !== null) {
+            document.querySelector('input[name="v_num"]').value = res.vehicleNumber;
+            document.querySelector(".profile").classList.remove("d-none");
+            document.querySelector(".image").src = res.vehicle_image;
+          }
           p[0].innerHTML = res.vehicleNumber;
+          auth[0].innerHTML = "Authorized";
+          auth[0].style.color = "green";
         };
         xhr.send(formdata);
       }
     </script>
-    <!-- <div class="container wrapper">
-      <div class="row">
-        <div class="col-lg-8 offset-lg-2">
-          <h3 class="mt-5">Live Camera</h3>
-          {% if filename %}
-          <div>
-            <img src="{{ url_for('display_image', filename=filename) }}" />
-          </div>
-          {% endif %} {% if not filename %}
-          <img src="{{ url_for('video_feed') }}" width="100%" />
-          {% endif %}
-          <form method="post" action="/" enctype="multipart/form-data">
-            <p>
-              <button type="submit" class="subscribe-btn" value="Capture" >Capture</button>
-            </p>
-          </form>
-        </div>
-      </div>
-    </div> -->
   </body>
 </html>

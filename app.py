@@ -48,6 +48,11 @@ def auth():
     return render_template("auth.html")
 
 
+@app.route('/signup')
+def signup():
+    return render_template("signup.html")
+
+
 @app.route('/home', methods=["POST", "GET"])
 def home():
     sql = SqlLite()
@@ -174,12 +179,17 @@ def processImage():
         if fs:
             filename = secure_filename(fs.filename)
             filename = "camera-uploaded-image.jpg"
-            print('filename:', filename)
             fs.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
+            vehicle_image = os.path.join(app.config['UPLOAD_FOLDER'], filename)
             vehicleNumber = algo.Detect(filename)
             print(vehicleNumber, 'here is result')
+            profile = None
+            if vehicleNumber != None:
+                number = ''.join(filter(str.isalnum, vehicleNumber))
+                profile = getprofile(number)
             # Create Dictionary
-            response = {"vehicleNumber": vehicleNumber, "msg": "Got Snap!"}
+            response = {"vehicleNumber": vehicleNumber, "vehicle_image": vehicle_image,
+                        "profile": profile, "msg": "Got Snap!"}
 
             # Dictionary to JSON Object using dumps() method
             # Return JSON Object
@@ -187,7 +197,6 @@ def processImage():
         else:
             response = {"vehicleNumber": vehicleNumber,
                         "msg": "You forgot Snap!"}
-
             return json.dumps(response)
 
     return json.dumps({"vehicleNumber": None, "msg": "Something wrong with us!"})
