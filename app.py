@@ -52,6 +52,9 @@ def auth():
 def signup():
     return render_template("signup.html")
 
+@app.route('/vehicleregister')
+def vehicleregister():
+    return render_template("vehicleregister.html")
 
 @app.route('/home', methods=["POST", "GET"])
 def home():
@@ -78,6 +81,31 @@ def home():
         if user != None:
             return render_template("index.html")
     return redirect(request.referrer)
+
+@app.route('/vehiclesave', methods=["POST"])
+def vehiclesave():
+    sql = SqlLite()
+    conn = sql.Connect()
+    if request.method == 'POST':
+        try:
+            name = request.form['name']
+            address = request.form['address']
+            model = request.form['car_model']
+            license_no = request.form['license_no']
+            with conn:
+                cur = conn.cursor()
+                cur.execute(
+                    "INSERT INTO Vehicle(name, address, car_model,license_no) VALUES(?, ?, ?,?)", (name, address, model,license_no))
+
+                conn.commit()
+                msg = "Success"
+        except:
+            conn.rollback()
+            msg = "Error occurred"
+
+        finally:
+            conn.close()
+            return render_template("vehicleregister.html", msg=msg)
 
 
 @app.route('/register', methods=["POST"])
