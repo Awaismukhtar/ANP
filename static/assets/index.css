@@ -1,5 +1,5 @@
-@import url('https://fonts.googleapis.com/css?family=Roboto:300,400,700&display=swap');
-
+/* @import url('https://fonts.googleapis.com/css?family=Roboto:300,400,700&display=swap'); */
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;700&family=Poppins:wght@200;300;400;500;600;700&display=swap');
 * {
   margin: 0;
   padding: 0; 
@@ -7,11 +7,17 @@
 
 html {
   font-size: 20px;
-  font-family: 'Roboto';
+  /* font-family: 'Roboto'; */
+  color: #f6f6f6;
+  font-family: 'Poppins', sans-serif;
 }
 
 body {
-  background: linear-gradient(90deg, #573b8a, #6d44b8);
+  /* background: linear-gradient(90deg, #573b8a, #6d44b8); */
+  background:linear-gradient(rgba(0,0,0,0.3),rgba(0,0,0,0.3)), url(./bgimages/pexels-ahmad-ramadan-131811.jpg);
+  background-repeat: no-repeat;
+  background-position: left;
+  background-size: cover;
 }
 
 .wrapper {
@@ -36,21 +42,25 @@ body {
 }
 
 .card-content {
-  max-width: 30rem;
-  background-color: #fff;
+  max-width: 27rem;
+  background:transparent;
   position: relative;
-  top: 50%;
+  background:rgba(0,0,0,0.2);
+  /* top: 50%;
   left: 50%;
-  transform: translate(-50%,-50%);
+  transform: translate(-50%,-50%); */
   border-radius: 1rem;
   padding: 4rem .5rem;
   box-shadow: 1px 1px 2rem rgba(0,0,0,.3);
   text-align: center;
+  border: #f6f6f6 1px solid;
+  margin-top:80px;
+  margin-left: 50px;
 }
 
 .card-content h1 {
-  text-transform: uppercase;
-  margin: 0 0 1rem 0;
+  /* text-transform: uppercase; */
+  margin: 1rem 0 1rem 0;
 }
 
 .card-content p {
@@ -61,25 +71,35 @@ body {
 input {
   padding: .8rem 1rem;
   width: 40%;
-  border-radius: 5rem;
+  /* border-radius: 5rem; */
   outline: none;
-  border: .1rem solid #d1d1d1;
-  font-size: .7rem;
+  border-bottom: .1rem solid #d1d1d1;
+  font-size: .8rem;
 }
 
 ::placeholder {
   color: #d1d1d1;
+  padding:0.5rem;
 }
 
 .subscribe-btn {
-  padding: .8rem 2rem;
-  border-radius: 5rem;
-  background: linear-gradient(90deg, #573b8a, #6d44b8);
-  color: #fff;
-  font-size: .7rem;
+  padding: .8rem 1rem;
+  border-radius: .5rem;
+  /* background: linear-gradient(90deg, #408697, #52D6F4); */
+  /* background: linear-gradient(90deg, #8D8C8A, #363538); */
+  background:#c30010;
+  color: #f6f6f6;
+  font-size: .8rem;
   border: none;
   outline: none;
   cursor: pointer;
+}
+
+.subscribe-btn:hover
+{
+  color:#c30010;
+  background: #f6f6f6;
+  border:#c30010 1px solid ;
 }
 
 
@@ -89,12 +109,11 @@ input {
 	margin: 10px auto;
 	justify-content: center;
   padding: .8rem 2rem;
-  border-radius: 5rem;
-  background: linear-gradient(90deg, #573b8a, #6d44b8);
+  /* border-radius: 5rem; */
+  /* background: linear-gradient(90deg, #573b8a, #6d44b8); */
   color: #fff;
-  font-size: .7rem;
-  border: none;
-  outline: none;
+  border: 1px solid #f6f6f6;
+  font-size: .8rem;
   cursor: pointer;
   margin-top: 3rem;
   transition-duration: 0.2s;
@@ -131,3 +150,4 @@ a {
   0% { transform: rotate(0deg); }
   100% { transform: rotate(360deg); }
 }
+

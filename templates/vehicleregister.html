@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Registration</title>
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css"
+    />
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="{{ url_for('static',filename='assets/vregister.css') }}"
+    />
+    <script type="text/javascript" src="js/jquery.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+  </head>
+
+  <body>
+    <div class="container">
+      <div class="row container1">
+        <h2>Enter New Record</h2>
+        <br />
+        <form action="vehiclesave" method="POST" enctype="multipart/form-data">
+          <fieldset>
+            <legend>Owner name</legend>
+            <input
+              type="text"
+              class="form-control"
+              name="name"
+              id="name"
+              required
+            />
+            <legend>Owner Age</legend>
+            <input
+              type="number"
+              class="form-control"
+              name="age"
+              id="age"
+              required
+            />
+            <legend>Owner Address</legend>
+            <input
+              type="text"
+              class="form-control"
+              name="address"
+              id="address"
+              required
+            />
+            <legend>Vehicle Model</legend>
+            <input
+              type="text"
+              class="form-control"
+              name="car_model"
+              id="car_model"
+              required
+            />
+            <legend>License Number</legend>
+            <input
+              type="text"
+              class="form-control"
+              name="license_no"
+              id="license_no"
+              required
+            />
+            <br /><br />
+            <button type="submit" id="create" class="subscribe-btn">
+              Save Record
+            </button>
+          </fieldset>
+        </form>
+      </div>
+      <hr />
+      <div class="container2">
+        <h2>Record</h2>
+        <table class="table table-bordered table-hover" id="ownerlist">
+          <thead class="heading">
+            <td>Id</td>
+            <td>Name</td>
+            <td>Age</td>
+            <td>Address</td>
+            <td>Car_model</td>
+            <td>License_no</td>
+          </thead>
+
+          {% for row in rows %}
+          <tr>
+            <td>{{row[0]}}</td>
+            <td>{{row[1]}}</td>
+            <td>{{row[2]}}</td>
+            <td>{{row[3]}}</td>
+            <td>{{row[4]}}</td>
+            <td>{{row[5]}}</td>
+            <td><a href='{{url_for("delete_record",id=row[0])}}' class='subscribe-btn' onclick='return confirm("Are You Sure?")'>Delete</a></td>
+          </tr>
+          {% endfor %}
+        </table>
+      </div>
+    </div>
+    <button onclick="history.go(-1)" class="subscribe-btn last-btn">
+      Go Back
+    </button>
+
+    <!-- <script type="text/javascript">
+  var db = openDatabase("VehicleInfo", "1.0", "VehicleInfo", 65535);
+  setTimeout(function () {
+            $(".deleteitem").on("click", function () {
+              var id = $(this).data("id");
+              db.transaction(function (transaction) {
+                var sql = "DELETE FROM VehicleInfo WHERE id=?";
+                transaction.executeSql(
+                  sql,
+                  [id],
+                  function () {
+                    // alert("deleted successfully");
+                    $("#del" + id).fadeOut("slow");
+                  },
+                  function (transaction, err) {
+                    alert(err.message);
+                  }
+                );
+              });
+            });
+          }, 1000);
+</script> -->
+
+    <!-- <script type="text/javascript">
+      var db = openDatabase("VehicleInfo", "1.0", "VehicleInfo", 65535);
+      $(function () {
+    //     loadData();
+
+    //     $("#create").click(function () {
+    //       db.transaction(function (transaction) {
+    //         var sql =
+    //           "CREATE TABLE items " +
+    //           "(id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT," +
+    //           "name VARCHAR(100) NOT NULL," +
+    //           "address VARCHAR(100) NOT NULL," +
+    //           "car_model VARCHAR(100) NOT NULL," +
+    //           "license_no VARCHAR(100) NOT NULL)";
+    //         transaction.executeSql(
+    //           sql,
+    //           undefined,
+    //           function () {
+    //             alert("Table is created successfully");
+    //           },
+    //           function () {
+    //             alert("Table is already being created");
+    //           }
+    //         );
+    //       });
+    //     });
+
+    //     // to remove table
+
+    //     $("#delete").click(function () {
+    //       if (!confirm("Are you sure to delete this table?", "")) return;
+    //       db.transaction(function (transaction) {
+    //         var sql = "DROP TABLE items";
+    //         transaction.executeSql(
+    //           sql,
+    //           undefined,
+    //           function () {
+    //             alert("Table is deleted successfully");
+    //           },
+    //           function (transaction, err) {
+    //             alert(err.message);
+    //           }
+    //         );
+    //       });
+    //     });
+
+    //     // // to insert
+    //     // $("#insert").click(function () {
+    //     //   var name = $("#name").val();
+    //     //   var add = $("#address").val();
+    //     //   var vmod = $("#car_model").val();
+    //     //   var num = $("#license_no").val();
+    //     //   db.transaction(function (transaction) {
+    //     //     var sql =
+    //     //       "INSERT INTO items(name,address,car_model,license_no) VALUES(?,?,?,?)";
+    //     //     transaction.executeSql(
+    //     //       sql,
+    //     //       [name, add, vmod, num],
+    //     //       function () {
+    //     //         // alert("New item is added successfully");
+    //     //       },
+    //     //       function (transaction, err) {
+    //     //         alert(err.message);
+    //     //       }
+    //     //     );
+    //     //   });
+    //     //   loadData();
+    //     // });
+
+    //     // to fetch
+    //     $("#list").click(function () {
+    //       loadData();
+    //     });
+    //     function loadData() {
+    //       $("#ownerlist").children().remove();
+    //       db.transaction(function (transaction) {
+    //         var sql = "SELECT * FROM items ORDER BY id";
+    //         transaction.executeSql(
+    //           sql,
+    //           undefined,
+    //           function (transaction, result) {
+    //             if (result.rows.length) {
+    //               for (var i = 0; i < result.rows.length; i++) {
+    //                 var row = result.rows.item(i);
+    //                 var name = row.name;
+    //                 var id = row.id;
+    //                 var address = row.address;
+    //                 var car_model = row.car_model;
+    //                 var license_no = row.license_no;
+    //                 $("#ownerlist").append(
+    //                   '<tr id="del' +
+    //                     id +
+    //                     '"><td>' +
+    //                     id +
+    //                     "</td><td>" +
+    //                     name +
+    //                     "</td><td>" +
+    //                     "</td><td>" +
+    //                     address +
+    //                     "</td><td>" +
+    //                     "</td><td>" +
+    //                     car_model +
+    //                     "</td><td>" +
+    //                     license_no +
+    //                     '</td><td><a href="#" class="btn btn-danger deleteitem" data-id="' +
+    //                     id +
+    //                     '">Delete</a></tr>'
+    //                 );
+    //               }
+    //             } else {
+    //               $("#ownerlist").append(
+    //                 '<tr><td colspan="5" align="center">No Item Found</td></tr>'
+    //               );
+    //             }
+    //           },
+    //           function (transaction, err) {
+    //             alert(err.message);
+    //           }
+    //         );
+    //       });
+
+    //       // to delete a row
+          setTimeout(function () {
+            $(".deleteitem").on("click", function () {
+              var id = $(this).data("id");
+              db.transaction(function (transaction) {
+                var sql = "DELETE FROM items WHERE id=?";
+                transaction.executeSql(
+                  sql,
+                  [id],
+                  function () {
+                    // alert("deleted successfully");
+                    $("#del" + id).fadeOut("slow");
+                  },
+                  function (transaction, err) {
+                    alert(err.message);
+                  }
+                );
+              });
+            });
+          }, 1000);
+        }
+      });
+    // </script> -->
+  </body>
+</html>

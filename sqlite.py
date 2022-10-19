@@ -16,7 +16,7 @@ class SqlLite:
 
     def CreateVehicleTable(self):
         conn = self.Connect()
-        conn.execute('CREATE TABLE IF NOT EXISTS VehicleInfo (id INT AUTO_INCREMENT PRIMARY KEY, name TEXT NOT NULL, age INT NOT NULL, address CHAR(50) NOT NULL, car_car_model VARCHAR(50) NOT NULL, license_no VARCHAR(50)  NOT NULL)')
+        conn.execute('CREATE TABLE IF NOT EXISTS VehicleInfo (id INTEGER PRIMARY KEY AUTOINCREMENT, name TEXT NOT NULL, age INT NOT NULL, address CHAR(50) NOT NULL, car_model VARCHAR(50) NOT NULL, license_no VARCHAR(50)  NOT NULL UNIQUE)')
         print("VehicleInfo table created")
         # ADD DATA OR RECORD IN TABLE
         conn.execute("INSERT or IGNORE INTO VehicleInfo (name,age,address,car_model,license_no) \
@@ -37,6 +37,8 @@ class SqlLite:
                     VALUES ('CHARLIE', 30, 'UK','WAGONR','H982FKL')")
         conn.commit()
         print("Records in VehicleInfo created successfully")
+        
+             
         #  DISPLAY ALL THE RECORDS IN DATABASE
         cursor = conn.execute(
             "SELECT id, name, address, car_model, license_no from VehicleInfo")

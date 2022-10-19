@@ -1,0 +1,93 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;700&family=Poppins:wght@200;300;400;500;600;700&display=swap');
+* {
+  margin: 0;
+  padding: 0; 
+}
+
+html {
+  font-size: 20px;
+  /* font-family: 'Roboto'; */
+  color: #f6f6f6;
+  font-family: 'Poppins', sans-serif;
+}
+body
+{
+    margin: 30px; 
+    /* background: #c31432;  
+    background: -webkit-linear-gradient(to right, #240b36, #c31432); 
+    background: linear-gradient(to right, #240b36, #c31432); */
+    /* background: #f7f7f7; */
+    background-image:linear-gradient(rgba(0,0,0,0.4),rgba(0,0,0,0.4)), url(./bgimages/pexels-lukas-317356.jpg);
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+    min-height: 95vh;
+}
+
+.container
+{
+    display: flex;
+    justify-content: space-around;
+    /* background: #ffffff;
+    padding: 30px;
+    margin: auto;
+    width: 50%;
+    box-shadow: 1px 1px 2rem rgba(0,0,0,.3);; */
+}
+
+.container1 , .container2
+{
+  
+  background: #ffffff;
+  padding: 30px;
+  margin: 10px;
+  min-width: 60%;
+  box-shadow: 1px 1px 2rem rgba(0,0,0,.3);;
+  min-height:70vh;
+}
+
+.heading
+{
+  font-weight: 700;
+  font-size: medium;
+}
+
+.subscribe-btn
+ {
+    padding: .5rem;
+    border-radius: .5rem;
+    background:#c30010;
+    color: #f6f6f6;
+    font-size: .8rem;
+    border: none;
+    outline: none;
+    cursor: pointer;
+  }
+
+  .subscribe-btn:hover
+{
+  color:#c30010;
+  background: #f6f6f6;
+  border:#c30010 1px solid ;
+}
+
+  .last-btn
+  {
+    margin: 0 auto;
+    display: block;
+    width: 150px;
+    text-align: center;
+    
+  }
+
+  legend
+  {
+      color: #262326;
+      
+  }
+
+  .container h2
+  {
+      border-bottom:#c30010 5px solid ;
+
+  }

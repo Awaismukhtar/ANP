@@ -1,6 +1,6 @@
 body {
-  background: #ececec;
-  color: #ffffff;
+  /* background: #ececec; */
+  color: #fff;
 }
 
 .container {
@@ -9,13 +9,21 @@ body {
   width: 100%;
   min-height: 100vh;
   text-align: center;
-  background: linear-gradient(to bottom, #0f0c29, #302b63, #24243e);
+  /* background: #f6f6f6; */
+  /* color: #d1001f; */
+  /* background: linear-gradient(to bottom, #0f0c29, #302b63, #24243e); */
+  /* background: rgb(209,0,31);
+    background: linear-gradient(153deg, rgba(209,0,31,1) 0%, rgba(79,79,81,1) 100%); */
+  background-image:linear-gradient(rgba(0,0,0,0.5),rgba(0,0,0,0.5)), url(./bgimages/pexels-erik-mclean-6016937.jpg);
+  background-repeat: no-repeat;
+  background-position:center;
+  background-size: cover;
   border-radius: 10px;
   box-shadow: 1px 1px 2rem rgba(0, 0, 0, 0.3);
 }
 
 .header {
-  color: #ffffff;
+  /* color: #ffffff; */
   width: 100%;
   height: 100%;
   text-align: center;
@@ -53,11 +61,12 @@ img {
   justify-content: center;
   text-decoration: none;
   padding: 0.8rem 2rem;
-  border-radius: 5rem;
-  background: linear-gradient(90deg, #573b8a, #6d44b8);
-  color: #fff;
+  border-radius: 2rem;
+  /* background: linear-gradient(90deg, #573b8a, #6d44b8); */
+  color: #f6f6f6;
   font-size: 1rem;
-  border: none;
+  border: 1px solid #fff;
+  background: #d1001f;
   outline: none;
   cursor: pointer;
   margin-top: 3rem;
@@ -65,5 +74,5 @@ img {
 }
 
 .GoBack-btn:hover {
-  background: #6d44b8;
-}
+  background:#ee6b6e;
+}  

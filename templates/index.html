@@ -32,13 +32,13 @@
         {% block content %}
         <div class="card-inner">
           <div class="container">
-            <div class="image">
+            <!-- <div class="image">
               <img src="../static/assets/images/unilogo.jpg" alt="asda" />
-            </div>
+            </div> -->
            {% if profile == None %}
             <h2 style="color: red;">Not Authorized</h2>
             {% else %}
-            <h2 style="color: green;">Authorized</h2>
+            <h2 style="color: #acf3ae;">Authorized</h2>
             {%endif %}
             {% if not vehicle_image %}
             <h1>Automatic Number Plate Recognition</h1>
@@ -62,11 +62,15 @@
               placeholder="Choose Image"
               required
             />
+            
             <button class="subscribe-btn" type="submit" onclick="loading();">
               Submit
             </button>
+            <br><br>
             <a href="/live" class="subscribe-btn">Camera</a>
+            <a href="/vehicleregister" class="subscribe-btn">Record Handling</a>
           </div>
+          
           <div class="logout-btn">
           <a href="/auth" class="">LOG OUT</a>
         </div>
@@ -80,6 +84,7 @@
         <img src="{{vehicle_image}}"  width="400" height="400" />
         <form action="{{ url_for('info') }}" method="get">
           <input type="hidden" name="v_num" value="{{number}}" />
+          <br>
           <button class="subscribe-btn" type="submit">View Profile</button>
       </form>
       </div> 

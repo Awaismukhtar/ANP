@@ -1,22 +1,35 @@
 body {
   margin: 0;
+  margin-right: 200px;
   padding: 0;
   display: flex;
-  justify-content: center;
+  justify-content: right;
   align-items: center;
   min-height: 100vh;
   font-family: "Jost", sans-serif;
-  background: linear-gradient(to bottom, #0f0c29, #302b63, #24243e);
+  /* background: linear-gradient(to bottom, #0f0c29, #302b63, #24243e); */
+  /* background: #ED213A; 
+  background: -webkit-linear-gradient(to right, #93291E, #ED213A);  
+  background: linear-gradient(to right, #93291E, #ED213A);  */
+  background-image:linear-gradient(rgba(0,0,0,0.3),rgba(0,0,0,0.3)), url(./bgimages/pexels-atypeek-dgn-5650141.jpg);
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
 }
 .main {
   width: 350px;
   height: 500px;
-  background: red;
+/*   
+  background: rgb(195,0,16);
+  background: linear-gradient(0deg, rgba(195,0,16,1) 0%, rgba(238,107,110,1) 100%); */
+  background:#f6f6f6 ;
+  color: #d1001f;
   overflow: hidden;
-  background: url("https://doc-08-2c-docs.googleusercontent.com/docs/securesc/68c90smiglihng9534mvqmq1946dmis5/fo0picsp1nhiucmc0l25s29respgpr4j/1631524275000/03522360960922298374/03522360960922298374/1Sx0jhdpEpnNIydS4rnN4kHSJtU1EyWka?e=view&authuser=0&nonce=gcrocepgbb17m&user=03522360960922298374&hash=tfhgbs86ka6divo3llbvp93mg4csvb38")
-    no-repeat center/ cover;
+  /* background: url("https://doc-08-2c-docs.googleusercontent.com/docs/securesc/68c90smiglihng9534mvqmq1946dmis5/fo0picsp1nhiucmc0l25s29respgpr4j/1631524275000/03522360960922298374/03522360960922298374/1Sx0jhdpEpnNIydS4rnN4kHSJtU1EyWka?e=view&authuser=0&nonce=gcrocepgbb17m&user=03522360960922298374&hash=tfhgbs86ka6divo3llbvp93mg4csvb38")
+    no-repeat center/ cover; */
   border-radius: 10px;
   box-shadow: 5px 20px 50px #000;
+  
 }
 #chk {
   display: none;
@@ -27,7 +40,7 @@ body {
   height: 100%;
 }
 form label {
-  color: #fff;
+  /* color: #fff; */
   font-size: 2.3em;
   justify-content: center;
   display: flex;
@@ -39,12 +52,12 @@ form label {
 input {
   width: 60%;
   height: 20px;
-  background: #e0dede;
+  background: #fff;
+  border: 0.5px solid #d1001f;
   justify-content: center;
   display: flex;
   margin: 20px auto;
   padding: 10px;
-  border: none;
   outline: none;
   border-radius: 5px;
 }
@@ -55,28 +68,30 @@ button {
   justify-content: center;
   display: block;
   color: #fff;
-  background: #573b8a;
+  background: #d1001f;
   font-size: 1em;
   font-weight: bold;
   margin-top: 20px;
   outline: none;
-  border: none;
+  border: 1px solid #d1001f;
   border-radius: 5px;
   transition: 0.2s ease-in;
   cursor: pointer;
 }
 button:hover {
-  background: #6d44b8;
+  background: #fff;
+  border: 3px solid #d1001f;
+  color:#d1001f ;
 }
 .login {
   height: 460px;
-  background: #eee;
+  background: #f6f6f6;
   border-radius: 60% / 10%;
   /* transform: translateY(-180px); */
   transition: 0.8s ease-in-out;
 }
 .login label {
-  color: #573b8a;
+  color: #d1001f;
   transform: scale(0.6);
 }
 

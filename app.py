@@ -19,7 +19,6 @@ app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 def getprofile(vehicleNumber):
     sql = SqlLite()
     conn = sql.Connect()
-    sql.CreateVehicleTable()
     vehicleInfo = None
     try:
         with conn:
@@ -52,9 +51,72 @@ def auth():
 def signup():
     return render_template("signup.html")
 
+
 @app.route('/vehicleregister')
 def vehicleregister():
-    return render_template("vehicleregister.html")
+    sql = SqlLite()
+    con = sql.Connect()
+    cur = con.cursor()
+    cur.execute("select * from vehicleInfo")
+
+    rows = cur.fetchall()
+    con.close()
+    return render_template("vehicleregister.html", rows=rows)
+
+
+@app.route('/vehiclesave', methods=["POST"])
+def vehiclesave():
+    sql = SqlLite()
+    conn = sql.Connect()
+    if request.method == 'POST':
+        try:
+            name = request.form['name']
+            address = request.form['address']
+            model = request.form['car_model']
+            license_no = request.form['license_no']
+            age = request.form['age']
+            with conn:
+                cur = conn.cursor()
+                cur.execute(
+                    "INSERT INTO VehicleInfo(name, age,address, car_model,license_no) VALUES(?,?,?,?,?)", (name, age, address, model, license_no))
+
+                conn.commit()
+                msg = "Success"
+                print(msg, "created")
+        except:
+            conn.rollback()
+            msg = "Error occurred"
+            print(msg)
+
+        finally:
+            cur = conn.cursor()
+            cur.execute("select * from vehicleInfo")
+
+            rows = cur.fetchall()
+            conn.close()
+            return redirect(request.url) 
+            # render_template("vehicleregister.html", msg=msg, rows=rows)
+
+
+@app.route("/delete_record/<int:id>", methods=['GET'])
+def delete_record(id):
+    try:
+        sql = SqlLite()
+        con = sql.Connect()
+        cur = con.cursor()
+        cur.execute('delete from vehicleInfo WHERE id=?', (id,))
+        con.commit()
+        con.close()
+    except:
+        flash("Whoops! There was a problem deleting user, try again...")
+
+    return redirect("/vehicleregister")
+
+
+@app.route('/registration')
+def registration():
+    return render_template("registration.html")
+
 
 @app.route('/home', methods=["POST", "GET"])
 def home():
@@ -81,31 +143,6 @@ def home():
         if user != None:
             return render_template("index.html")
     return redirect(request.referrer)
-
-@app.route('/vehiclesave', methods=["POST"])
-def vehiclesave():
-    sql = SqlLite()
-    conn = sql.Connect()
-    if request.method == 'POST':
-        try:
-            name = request.form['name']
-            address = request.form['address']
-            model = request.form['car_model']
-            license_no = request.form['license_no']
-            with conn:
-                cur = conn.cursor()
-                cur.execute(
-                    "INSERT INTO Vehicle(name, address, car_model,license_no) VALUES(?, ?, ?,?)", (name, address, model,license_no))
-
-                conn.commit()
-                msg = "Success"
-        except:
-            conn.rollback()
-            msg = "Error occurred"
-
-        finally:
-            conn.close()
-            return render_template("vehicleregister.html", msg=msg)
 
 
 @app.route('/register', methods=["POST"])
