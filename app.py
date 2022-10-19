@@ -89,13 +89,8 @@ def vehiclesave():
             print(msg)
 
         finally:
-            cur = conn.cursor()
-            cur.execute("select * from vehicleInfo")
-
-            rows = cur.fetchall()
             conn.close()
-            return redirect(request.url) 
-            # render_template("vehicleregister.html", msg=msg, rows=rows)
+            return redirect('/vehicleregister') 
 
 
 @app.route("/delete_record/<int:id>", methods=['GET'])
